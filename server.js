@@ -7,6 +7,9 @@ const PORT = process.env.PORT || 3000;
 // Connect Database
 connectDB();
 
+//init Middleware
+app.use(express.json({extended: false}));
+
 // Define Routes
 app.use('/users', require('./routes/api/users'));
 app.use('/profile', require('./routes/api/profile'));
