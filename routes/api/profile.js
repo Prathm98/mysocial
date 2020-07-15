@@ -5,7 +5,6 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const { check, validationResult } = require('express-validator');
 
-
 // @route     GET /profile/me
 // @desc      Get current user profile
 // @access    Private
