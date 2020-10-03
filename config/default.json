@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb://localhost:27017/SocialDB"
+  "mongoURI": "mongodb://localhost:27017/SocialDB",
+  "jwtSecret": "mysecretecode"
 }
