@@ -4,6 +4,7 @@ const Profile = require('../../models/Profile');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const User = require('../../models/User');
+const request = require('request');
 
 // @route     GET api/profile/me
 // @desc      Get current user profile
@@ -278,6 +279,31 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
     await profile.save();
 
     res.json({ msg: 'Education Removed' });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route    GET api/profile/github/:username
+// @desc     Get github repos
+// @access   Public
+router.get("/github/:username", async (req, res) => {
+  try {
+    const options = {
+      uri: `https://api.github.com/users/${req.params.username}/repos`,
+      method: 'GET',
+      headers: {'user-agent': 'node.js'}
+    };
+    request(options, (err, response, body) => {
+      if(err) console.error(err);
+
+      if(response.statusCode !== 200){
+        res.status(400).json({msg: 'Github username not found'});
+      }
+
+      res.json(JSON.parse(body));
+    });
   } catch (e) {
     console.error(e);
     res.status(500).send('Server Error');
