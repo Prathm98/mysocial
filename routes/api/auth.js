@@ -13,7 +13,10 @@ const { check, validationResult } = require('express-validator');
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
-    res.json(user);
+    if(!user){
+      return res.status(400).json({errors: [{msg: 'User does not exists'}]});
+    }  
+    res.json(user);  
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');

@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_ERROR, GET_EXPERIENCE } from './types';
+import { GET_PROFILE, PROFILE_ERROR, ACCOUNT_DELETED, CLEAR_PROFILE } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
 
@@ -105,6 +105,70 @@ export const addEducation = (eduData, history) => async dispatch => {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+}
+
+export const deleteEducation = (id) => async dispatch => {
+  try {
+    let res = await axios.delete(`http://localhost:5000/api/profile/education/${id}`);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    const errors = err.response.data.errors; 
+    if(errors){
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+}
+
+export const deleteExperience = (id) => async dispatch => {
+  try {
+    let res = await axios.delete(`http://localhost:5000/api/profile/experience/${id}`);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    const errors = err.response.data.errors; 
+    if(errors){
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+}
+
+export const deleteAccount = () => async dispatch => {
+  try {
+    if(window.confirm('Are you sure? This action can not be undone')){
+      let res = await axios.delete('http://localhost:5000/api/profile');
+
+      dispatch({ type: CLEAR_PROFILE });
+      dispatch({ type: ACCOUNT_DELETED });
+      dispatch(setAlert('Account deleted permanently'));
+    }
+  } catch (err) {  
+    const errors = err.response.data.errors; 
+    if(errors){
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+    
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExperience } from '../../actions/profile';
 
-const Experience = ({ profile:{ experience }}) => (
+const Experience = ({ profile:{ experience }, deleteExperience}) => (
   experience.length > 0 ? (<Fragment>
     <h2 className="my-2">Experience Credentials</h2>
     <table className="table">
@@ -24,7 +25,7 @@ const Experience = ({ profile:{ experience }}) => (
                 'Current': new Date(exp.to).toLocaleDateString()}
             </td>
             <td>
-              <button className="btn btn-danger">
+              <button className="btn btn-danger" onClick={() => deleteExperience(exp._id)}>
                 Delete
               </button>
             </td>
@@ -33,12 +34,14 @@ const Experience = ({ profile:{ experience }}) => (
       </tbody>
     </table>
   </Fragment>): (<Fragment>
-    <p>You have not added any experience, please add some info</p>
+    <h2 className="my-2">Experience Credentials</h2>
+    <p>You have not added any experience yet, please add some info</p>
   </Fragment>)
 );
 
 Experience.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  deleteExperience: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -46,5 +49,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-
+  deleteExperience
 })(Experience);

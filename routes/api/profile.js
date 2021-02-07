@@ -210,7 +210,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     profile.experience.splice(removeIndex, 1);
     await profile.save();
 
-    res.json({ msg: 'Experience Removed' });
+    res.json(profile);
   } catch (e) {
     console.error(e);
     res.status(500).send('Server Error');
@@ -278,7 +278,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
     profile.education.splice(removeIndex, 1);
     await profile.save();
 
-    res.json({ msg: 'Education Removed' });
+    res.json(profile);
   } catch (e) {
     console.error(e);
     res.status(500).send('Server Error');

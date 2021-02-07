@@ -15,7 +15,7 @@ export default function(state=initialState, action){
     case PROFILE_ERROR:
       return {...state, error: action.payload, loading: false};
     case CLEAR_PROFILE:
-      return {...state, loading: false, profile: null, repos: []}
+      return {...state, loading: false, profile: null, repos: []};
     default:
       return state;
   }

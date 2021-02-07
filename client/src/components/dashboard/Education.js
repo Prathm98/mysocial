@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteEducation } from '../../actions/profile';
 
-const Education = ({ profile:{ education }}) => (
-  Education.length > 0 ? (<Fragment>
+const Education = ({ profile:{ education }, deleteEducation}) => (
+  education.length > 0 ? (<Fragment>
     <h2 className="my-2">Education Credentials</h2>
     <table className="table">
       <thead>
@@ -24,7 +25,7 @@ const Education = ({ profile:{ education }}) => (
                 'Current': new Date(edu.to).toLocaleDateString()}
             </td>
             <td>
-              <button className="btn btn-danger">
+              <button className="btn btn-danger" onClick={()=> deleteEducation(edu._id)}>
                 Delete
               </button>
             </td>
@@ -33,12 +34,14 @@ const Education = ({ profile:{ education }}) => (
       </tbody>
     </table>
   </Fragment>): (<Fragment>
-    <p>You have not added any Education, please add some info</p>
+    <h2 className="my-2">Education Credentials</h2>
+    <p>You have not added any Education details yet, please add some info</p>
   </Fragment>)
 );
 
 Education.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  deleteEducation: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -46,5 +49,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-
+  deleteEducation
 })(Education);
