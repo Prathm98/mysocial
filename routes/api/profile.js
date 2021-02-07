@@ -9,14 +9,14 @@ const request = require('request');
 // @route     GET api/profile/me
 // @desc      Get current user profile
 // @access    Private
-router.get("/me", auth, async (req, res) => {
+router.get("/me", auth, async (req, res) => {  
   try {
-    let profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar']);
+    let profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar']); 
 
     if(!profile){
       return res.status(400).json({msg: 'No profile found for this user.'});
     }
-
+    
     res.json(profile);
   } catch (err) {
     console.error(err);
