@@ -1,5 +1,5 @@
 import { GET_PROFILE, PROFILE_ERROR, ACCOUNT_DELETED, CLEAR_PROFILE,
-  GET_PROFILES, GET_REPOS, SET_PROFILE_LOADING } from './types';
+  GET_PROFILES, GET_REPOS, SET_PROFILE_LOADING, GITHUB_ERROR } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
 
@@ -236,7 +236,7 @@ export const getGithubRepos = userName => async dispatch => {
     });
   } catch (err) {
     dispatch({
-      type: PROFILE_ERROR,
+      type: GITHUB_ERROR,
       payload: { msg: err.response.msg, status: err.response.status }
     });
   }

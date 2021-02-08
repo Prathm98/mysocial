@@ -1,5 +1,5 @@
 import { CLEAR_PROFILE, GET_PROFILE, GET_REPOS, PROFILE_ERROR, GET_PROFILES,
-  SET_PROFILE_LOADING } from '../actions/types';
+  SET_PROFILE_LOADING, GITHUB_ERROR } from '../actions/types';
 
 const initialState = {
   profile: null,
@@ -17,6 +17,8 @@ export default function(state=initialState, action){
       return {...state, profiles: action.payload, error:{}, loading: false};
     case PROFILE_ERROR:
       return {...state, error: action.payload, loading: false, profile: null};
+    case GITHUB_ERROR:
+      return {...state, error: action.payload, loading: false};
     case CLEAR_PROFILE:
       return {...state, loading: false, profile: null, repos: []};
     case GET_REPOS:
