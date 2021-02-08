@@ -5,6 +5,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const User = require('../../models/User');
 const request = require('request');
+const github = require('../../github.json');
 
 // @route     GET api/profile/me
 // @desc      Get current user profile
@@ -291,7 +292,9 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 router.get("/github/:username", async (req, res) => {
   try {
     const options = {
-      uri: `https://api.github.com/users/${req.params.username}/repos`,
+      // uri: `https://api.github.com/users/${req.params.username}/repos?sort=created:asc&client_id=`
+      //   + github.REACT_APP_GIT_ID + '&client_secrete=' + github.REACT_APP_GIT_SECRETE,
+      uri: 'https://api.github.com/users/mojombo/repos',
       method: 'GET',
       headers: {'user-agent': 'node.js'}
     };
@@ -299,7 +302,7 @@ router.get("/github/:username", async (req, res) => {
       if(err) console.error(err);
 
       if(response.statusCode !== 200){
-        res.status(400).json({msg: 'Github username not found'});
+        return res.status(400).json({msg: 'Github username not found'});
       }
 
       res.json(JSON.parse(body));
