@@ -300,7 +300,22 @@ router.get("/github/:username", async (req, res) => {
     };
     request(options, (err, response, body) => {
       if(err) console.error(err);
-
+      let testData = [{
+        html_url: "https://github.com/Prathm98/mysocial",
+        name: "Prathm98/mysocial",
+        description: "This is MERN based basic social app.",
+        stargazers_count: 1,
+        watchers_count: 1,
+        forks_count: 1
+      },{
+        html_url: "https://github.com/Prathm98/react-projects",
+        name: "Prathm98/react-projects",
+        description: "This is repository is created to get basic understanding of MERN stack.",
+        stargazers_count: 1,
+        watchers_count: 1,
+        forks_count: 1
+      }]; 
+      return res.json(testData);
       if(response.statusCode !== 200){
         return res.status(400).json({msg: 'Github username not found'});
       }

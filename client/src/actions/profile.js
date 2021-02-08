@@ -4,7 +4,7 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 export const getCurrentProfile = () => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   try {
     let res = await axios.get("http://localhost:5000/api/profile/me");
 
@@ -21,7 +21,7 @@ export const getCurrentProfile = () => async dispatch => {
 }
 
 export const createProfile = (formData, history, edit=false) => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   try {
     const config = {
       headers: {
@@ -54,7 +54,7 @@ export const createProfile = (formData, history, edit=false) => async dispatch =
 }
 
 export const addExperience = (expData, history) => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   try {
     const config = {
       headers: {
@@ -86,7 +86,7 @@ export const addExperience = (expData, history) => async dispatch => {
 }
 
 export const addEducation = (eduData, history) => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   try {
     const config = {
       headers: {
@@ -118,7 +118,7 @@ export const addEducation = (eduData, history) => async dispatch => {
 }
 
 export const deleteEducation = (id) => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   try {
     let res = await axios.delete(`http://localhost:5000/api/profile/education/${id}`);
 
@@ -140,7 +140,7 @@ export const deleteEducation = (id) => async dispatch => {
 }
 
 export const deleteExperience = (id) => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   try {
     let res = await axios.delete(`http://localhost:5000/api/profile/experience/${id}`);
 
@@ -162,7 +162,7 @@ export const deleteExperience = (id) => async dispatch => {
 }
 
 export const deleteAccount = () => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   try {
     if(window.confirm('Are you sure? This action can not be undone')){
       let res = await axios.delete('http://localhost:5000/api/profile');
@@ -186,7 +186,7 @@ export const deleteAccount = () => async dispatch => {
 
 
 export const getProfiles = () => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   dispatch({ type: CLEAR_PROFILE });
   try {
     let res = await axios.get("http://localhost:5000/api/profile");
@@ -209,7 +209,7 @@ export const getProfiles = () => async dispatch => {
 }
 
 export const getProfileById = userId => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   try {
     let res = await axios.get(`http://localhost:5000/api/profile/user/${userId}`);
 
@@ -226,7 +226,7 @@ export const getProfileById = userId => async dispatch => {
 }
 
 export const getGithubRepos = userName => async dispatch => {
-  dispatch({ type: SET_PROFILE_LOADING });
+  // dispatch({ type: SET_PROFILE_LOADING });
   try {
     let res = await axios.get(`http://localhost:5000/api/profile/github/${userName}`);
 

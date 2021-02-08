@@ -10,7 +10,7 @@ const GithubRepos = ({ username, getGithubRepos, profile:{loading, repos} }) => 
     if(username){
       getGithubRepos(username);
     }     
-  }, [getGithubRepos(username)]);
+  }, []);
 
   if(username === null){
     return <h4><br /><i className="fab fa-github"></i> Github Account is not linked by user!!!</h4>
@@ -23,7 +23,7 @@ const GithubRepos = ({ username, getGithubRepos, profile:{loading, repos} }) => 
           <i className="fab fa-github"></i> Github Repos
         </h2>
         {loading? <Spinner />: (repos && repos.length > 0? 
-          repos.map(repo => <ReposItem key={repo._id} repo={repo} />): 
+          repos.map((repo, index) => <ReposItem key={index} repo={repo} />): 
           <Fragment><p>No repositories found!!!</p></Fragment>)}        
       </div>
     </Fragment>
@@ -32,12 +32,12 @@ const GithubRepos = ({ username, getGithubRepos, profile:{loading, repos} }) => 
 
 GithubRepos.propTypes = {
   getGithubRepos: PropTypes.func.isRequired,
-  profile: PropTypes.array.isRequired,
+  profile: PropTypes.object.isRequired,
   username: PropTypes.string
 }
 
 const mapStateToProps = state => ({
-  profile: state.profile.repos
+  profile: state.profile
 });
 
 export default connect(mapStateToProps, {
