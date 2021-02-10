@@ -15,3 +15,5 @@ export const CLEAR_PROFILE = "CLEAR_PROFILE";
 export const ACCOUNT_DELETED = "ACCOUNT_DELETED";
 export const SET_PROFILE_LOADING = "SET_PROFILE_LOADING";
 export const GITHUB_ERROR = "GITHUB_ERROR";
+export const GET_POSTS = "GET_POSTS";
+export const POST_ERROR = "POST_ERROR";
