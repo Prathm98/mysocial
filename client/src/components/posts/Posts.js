@@ -1,15 +1,23 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getPosts } from '../../actions/post';
+import { getPosts, addPost } from '../../actions/post';
 import Spinner from '../layout/Spinner';
-import profile from '../../reducers/profile';
 import PostItem from './PostItem';
 
-const Posts = ({ getPosts, post: {posts, loading}}) => {
+const Posts = ({ getPosts, addPost, post: {posts, loading}}) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
+
+  const [postText, setPostText] = useState('');
+
+  const onSubmit = e => {
+    e.preventDefault();
+    addPost(postText);
+
+    setPostText('');
+  }
 
   return (<Fragment>
     {loading? <Spinner />: (posts.length > 0? <Fragment>
@@ -22,8 +30,10 @@ const Posts = ({ getPosts, post: {posts, loading}}) => {
         </div>
         <form className="form my-1">
           <textarea name="text" cols="30" rows="5"
-            placeholder="Create a post" required ></textarea>
-          <input type="submit" className="btn btn-dark my-1" value="Submit" />
+            placeholder="Create a post" required 
+            value={postText} onChange={e => setPostText(e.target.value)}></textarea>
+          {(postText.trim()).length > 0 && 
+            <input type="submit" className="btn btn-dark my-1" value="Submit" onClick={e => onSubmit(e)} />}
         </form>
       </div>
 
@@ -39,7 +49,8 @@ const Posts = ({ getPosts, post: {posts, loading}}) => {
 
 Posts.propTypes = {
   post: PropTypes.object.isRequired,
-  getPosts: PropTypes.func.isRequired
+  getPosts: PropTypes.func.isRequired,
+  addPost: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -47,5 +58,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getPosts
+  getPosts, addPost
 })(Posts);
